@@ -1,0 +1,9 @@
+# Default owners for everything.
+# Replace the placeholder below with David's GitHub handle once he has access.
+*                   @jaydenwears
+# *                 @jaydenwears @david-springer-handle
+
+# The load-bearing parts. See CONTRIBUTING.md for what makes them load-bearing.
+/src/engine.ts      @jaydenwears
+/src/config.ts      @jaydenwears
+/schema.sql         @jaydenwears
