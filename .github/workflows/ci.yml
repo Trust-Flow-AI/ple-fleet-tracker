@@ -1,0 +1,31 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Tests
+        run: npm test
+
+  # The scheduling engine is pure, so CI can verify it fully. What CI cannot do
+  # is check src/config.ts against the live Monday boards — that needs a Monday
+  # token, and the check is GET /admin/verify against the deployed Worker.
+  # Run it after any board change. See docs/MONDAY-BOARDS.md#board-surgery.
