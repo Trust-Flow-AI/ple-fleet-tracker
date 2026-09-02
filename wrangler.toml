@@ -1,0 +1,58 @@
+name = "ple-fleet-tracker"
+main = "src/index.ts"
+compatibility_date = "2025-01-15"
+compatibility_flags = ["nodejs_compat"]
+
+# Daily sweep + morning digest.
+# Two firings so the 6am local digest lands correctly in both standard and
+# daylight time; the handler checks the local hour and a once-per-day guard, so
+# exactly one of them does the work and the schedule never needs editing.
+# The 6-hourly firing is the safety net: it polls Bouncie directly in case a
+# webhook silently deactivated (a known Bouncie behaviour) and re-enables it.
+[triggers]
+crons = ["0 11,12 * * *", "0 */6 * * *"]
+
+[[d1_databases]]
+binding = "DB"
+database_name = "ple-fleet"
+database_id = "REPLACE_WITH_YOUR_D1_DATABASE_ID"
+
+[vars]
+# Non-sensitive configuration only. Anything that identifies a specific
+# organisation's boards or people is a secret instead — see below.
+
+TIMEZONE = "America/Chicago"
+DIGEST_HOUR = "6"
+
+# Set to "false" if you would rather new vehicles NOT auto-seed their service
+# clocks from the current odometer.
+SEED_BASELINE_FROM_CURRENT = "true"
+
+# Send SMS for these priorities only (comma separated).
+SMS_PRIORITIES = "Critical — Do Not Drive"
+
+# ---------------------------------------------------------------------------
+# Secrets — set with `wrangler secret put <NAME>`, never in this file.
+#
+# Deployment identity (kept out of the repo so this can be public):
+#   MONDAY_ACCOUNT_URL       https://youraccount.monday.com  (no trailing slash)
+#   MONDAY_BOARD_VEHICLES    board ID
+#   MONDAY_BOARD_INTERVALS   board ID
+#   MONDAY_BOARD_WORKORDERS  board ID
+#   DIGEST_TO                where the 6am digest goes
+#   ALERT_TO                 where urgent alerts go
+#   MAIL_FROM                sending address on your verified domain
+#
+# Credentials:
+#   BOUNCIE_CLIENT_ID
+#   BOUNCIE_CLIENT_SECRET
+#   BOUNCIE_REDIRECT_URI
+#   BOUNCIE_AUTH_CODE
+#   BOUNCIE_WEBHOOK_KEY
+#   MONDAY_API_TOKEN
+#   RESEND_API_KEY           optional — no key means no email
+#   TWILIO_ACCOUNT_SID       optional — no creds means no SMS
+#   TWILIO_AUTH_TOKEN
+#   TWILIO_FROM
+#   ADMIN_KEY
+# ---------------------------------------------------------------------------

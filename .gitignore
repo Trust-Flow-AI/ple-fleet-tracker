@@ -1,0 +1,12 @@
+node_modules/
+.wrangler/
+dist/
+*.log
+.DS_Store
+
+# Secrets and anything naming a specific deployment.
+.dev.vars
+.env
+.env.*
+*.local.md
+FLEET-CONFIG.local.md

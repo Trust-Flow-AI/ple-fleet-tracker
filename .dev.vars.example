@@ -1,0 +1,30 @@
+# Copy to .dev.vars for `wrangler dev`. NEVER commit the real file.
+# .dev.vars is gitignored.
+
+# --- Deployment identity ---
+MONDAY_ACCOUNT_URL=https://youraccount.monday.com
+MONDAY_BOARD_VEHICLES=0000000000
+MONDAY_BOARD_INTERVALS=0000000000
+MONDAY_BOARD_WORKORDERS=0000000000
+DIGEST_TO=you@example.com
+ALERT_TO=you@example.com
+MAIL_FROM=fleet@example.com
+
+# --- Bouncie ---
+BOUNCIE_CLIENT_ID=my-fleet-tracker
+BOUNCIE_CLIENT_SECRET=
+BOUNCIE_REDIRECT_URI=https://my-fleet-tracker.example.workers.dev/oauth/callback
+BOUNCIE_AUTH_CODE=
+BOUNCIE_WEBHOOK_KEY=
+
+# --- Monday ---
+MONDAY_API_TOKEN=
+
+# --- Optional notifications ---
+RESEND_API_KEY=
+TWILIO_ACCOUNT_SID=
+TWILIO_AUTH_TOKEN=
+TWILIO_FROM=
+
+# --- Admin endpoints ---
+ADMIN_KEY=
