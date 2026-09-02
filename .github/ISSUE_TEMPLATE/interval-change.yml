@@ -1,0 +1,66 @@
+name: Service interval change
+description: Propose changing, adding or pausing a maintenance rule
+labels: [intervals]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Most interval changes need no code and no issue** — edit the row on the
+        Service Intervals board in Monday and it applies on the next sweep.
+
+        File this when the change is worth discussing first, or when it needs a
+        new *kind* of trigger.
+
+  - type: input
+    id: service
+    attributes:
+      label: Service
+      placeholder: Transmission Fluid Service
+    validations:
+      required: true
+
+  - type: input
+    id: current
+    attributes:
+      label: Current interval
+      placeholder: 60,000 mi / 60 months, whichever first
+
+  - type: input
+    id: proposed
+    attributes:
+      label: Proposed interval
+      placeholder: 30,000 mi / 36 months for the trucks that tow
+    validations:
+      required: true
+
+  - type: textarea
+    id: why
+    attributes:
+      label: Why
+      description: Manufacturer spec, shop advice, something that failed, duty cycle
+    validations:
+      required: true
+
+  - type: dropdown
+    id: scope
+    attributes:
+      label: Which vehicles
+      options:
+        - All active vehicles
+        - Only some vehicles (list them below)
+    validations:
+      required: true
+
+  - type: input
+    id: which
+    attributes:
+      label: If only some — which
+      placeholder: Truck 4 (F-350 dually), Van 1
+
+  - type: checkboxes
+    id: code
+    attributes:
+      label: Does this need code?
+      options:
+        - label: No — just a board edit, filing this for the record
+        - label: Yes — it needs a new trigger type or new logic

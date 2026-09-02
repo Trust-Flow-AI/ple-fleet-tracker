@@ -1,0 +1,52 @@
+name: Bug
+description: Something the system did wrong
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Before filing: [docs/RUNBOOK.md](../blob/main/docs/RUNBOOK.md) covers the
+        common symptoms (webhook deactivated, IMEI mismatch, stale baseline,
+        expired auth code) and how to fix each.
+
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      placeholder: A second oil change work order opened for Van 1 while the first was still open.
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What should have happened
+    validations:
+      required: true
+
+  - type: input
+    id: vehicle
+    attributes:
+      label: Vehicle
+      description: Name or IMEI, if it's specific to one truck
+      placeholder: Van 1 — Transit / 3xxxxxxxxxxxxxx
+
+  - type: input
+    id: service
+    attributes:
+      label: Service / interval
+      placeholder: Oil & Filter Change
+
+  - type: textarea
+    id: audit
+    attributes:
+      label: Audit output
+      description: "`curl -s \"$W/admin/audit?key=$ADMIN_KEY\" | jq` — this usually contains the answer"
+      render: json
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Worker logs
+      description: "`npx wrangler tail` around the time it happened"
+      render: shell
